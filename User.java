@@ -1,10 +1,11 @@
 package digifiatsim;
 
-interface User {
+interface User implements Serializable {
   String getID();
   String getName();
   String getPublicKey();
-  boolean transferFrom(long amount);
-  boolean transferTo(long amount);
-  long getBalance();
+  /*
+  Boolean transferFrom(Long amount);
+  Boolean transferTo(Long amount); */
+  Long getBalance();
 }
