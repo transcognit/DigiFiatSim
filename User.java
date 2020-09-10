@@ -1,7 +1,10 @@
-package com.transcognit.digifiatsim;
+package digifiatsim;
 
-public interface User {
-  public String getID();
-  public String getName();
-  public String getPublicKey();
+interface User {
+  String getID();
+  String getName();
+  String getPublicKey();
+  boolean transferFrom(long amount);
+  boolean transferTo(long amount);
+  long getBalance();
 }
