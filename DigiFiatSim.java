@@ -9,16 +9,18 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   private JButton jbtn; //creation of button inside the JFrame window private
   private JLabel statusLabel;
   public JLabel MintLabel1, MintLabel2, PSP1Label1, PSP1Label2, PSP2Label1, PSP2Label2;
+  public JLabel UserLabel1, UserLabel2;
   java.util.Timer timer;
 
 
   MainWindow() {
     setTitle("Main Window");
-    setLayout(new GridLayout(4,1));
+    setLayout(new GridLayout(5,1));
     add(addButtons()); // Add panel containing buttons
     add(addMintButtons());
     add(addPSP1Buttons());
     add(addPSP2Buttons());
+    add(addUserButtons());
     setSize(700,350);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,6 +85,22 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     return(panel);
   }
 
+  private JPanel addUserButtons() {
+    JPanel panel = new JPanel();
+    GridLayout g = new GridLayout(1,4);
+    g.setHgap(5); g.setVgap(5);
+    panel.setLayout(g);
+    Border eBorder = BorderFactory.createEtchedBorder();
+    panel.setBorder( BorderFactory.createTitledBorder( eBorder, "Users" ) );
+    panel.add(new JLabel("User Transactions"));
+    UserLabel1 = new JLabel();
+    panel.add(UserLabel1);
+    panel.add(new JLabel("Value"));
+    UserLabel2 = new JLabel();
+    panel.add(UserLabel2);
+    return(panel);
+  }
+
   public void actionPerformed(ActionEvent evnt) {
     JButton src = (JButton)evnt.getSource();
     if (src.getText().equals("Pause...")) {
@@ -100,15 +118,17 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   }
 
   public void startTasks() {
-    TimerTask t1, t2, t3;
+    TimerTask t1, t2, t3, t4;
 
     timer = new java.util.Timer("TaskThread");
     t1 = new ControlTask(this);
     t2 = new PSP1(this);
     t3 = new PSP2(this);
+    t4 = new User(this);
     timer.schedule(t1,1000,2000);
     timer.schedule(t2, 1000, 1000);
     timer.schedule(t3, 1000, 500);
+    timer.schedule(t4, 1000, 500);
     statusLabel.setText("Status: Running");
   }
 }
