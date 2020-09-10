@@ -9,7 +9,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   private JButton jbtn; //creation of button inside the JFrame window private
   private JLabel statusLabel;
   public JLabel MintLabel1, MintLabel2, PSP1Label1, PSP1Label2, PSP2Label1, PSP2Label2;
-  public JLabel UserLabel1, UserLabel2;
+  public JLabel UserManagerLabel1, UserManagerLabel2;
   java.util.Timer timer;
 
 
@@ -20,7 +20,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     add(addMintButtons());
     add(addPSP1Buttons());
     add(addPSP2Buttons());
-    add(addUserButtons());
+    add(addUserManagerButtons());
     setSize(700,350);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,19 +85,19 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     return(panel);
   }
 
-  private JPanel addUserButtons() {
+  private JPanel addUserManagerButtons() {
     JPanel panel = new JPanel();
     GridLayout g = new GridLayout(1,4);
     g.setHgap(5); g.setVgap(5);
     panel.setLayout(g);
     Border eBorder = BorderFactory.createEtchedBorder();
-    panel.setBorder( BorderFactory.createTitledBorder( eBorder, "Users" ) );
-    panel.add(new JLabel("User Transactions"));
-    UserLabel1 = new JLabel();
-    panel.add(UserLabel1);
+    panel.setBorder( BorderFactory.createTitledBorder( eBorder, "UserManagers" ) );
+    panel.add(new JLabel("UserManager Transactions"));
+    UserManagerLabel1 = new JLabel();
+    panel.add(UserManagerLabel1);
     panel.add(new JLabel("Value"));
-    UserLabel2 = new JLabel();
-    panel.add(UserLabel2);
+    UserManagerLabel2 = new JLabel();
+    panel.add(UserManagerLabel2);
     return(panel);
   }
 
@@ -124,7 +124,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     t1 = new ControlTask(this);
     t2 = new PSP1(this);
     t3 = new PSP2(this);
-    t4 = new User(this);
+    t4 = new UserManager(this);
     timer.schedule(t1,1000,2000);
     timer.schedule(t2, 1000, 1000);
     timer.schedule(t3, 1000, 500);
