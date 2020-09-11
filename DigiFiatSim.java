@@ -13,7 +13,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   public JLabel MintLabel1, MintLabel2, PSP1Label1, PSP1Label2, PSP2Label1, PSP2Label2;
   public JLabel UserManagerLabel1, UserManagerLabel2, UserCountLabel;
   java.util.Timer timer;
-
+  TimerTask TimerMintControl, TimerPSP1, TimerPSP2, TimerUserControl;
 
   MainWindow() {
     setTitle("Main Window");
@@ -123,18 +123,30 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   }
 
   public void startTasks() {
-    TimerTask t1, t2, t3, t4;
-
-    timer = new java.util.Timer("TaskThread");
-    t1 = new ControlTask(this);
-    t2 = new PSP1(this);
-    t3 = new PSP2(this);
-    t4 = new UserManager(this);
-    timer.schedule(t1,1000,2000);
-    timer.schedule(t2, 1000, 1000);
-    timer.schedule(t3, 1000, 500);
-    timer.schedule(t4, 1000, 500);
+    //timer = new java.util.Timer("TaskThread");
+    TimerMintControl = new ControlTask(this);
+    TimerPSP1 = new PSP1(this);
+    TimerPSP2 = new PSP2(this);
+    TimerUserControl = new UserManager(this);
+    timer.schedule(TimerMintControl,1000,2000);
+    timer.schedule(TimerPSP1, 1000, 1000);
+    timer.schedule(TimerPSP2, 1000, 500);
+    timer.schedule(TimerUserControl, 1000, 500);
     statusLabel.setText("Status: Running");
+  }
+
+  // Mint Control Functions
+  public PSP getPSP() { // Return a random PSP to the caller
+    if (Math.random() > 0.5) {
+      return (PSP)TimerPSP1;
+    }
+    return (PSP)TimerPSP2;
+  }
+  public Boolean submitTransaction(AccountTransaction t) {
+    // Check if Transaction is valid
+    // Update balances
+    // Return true;
+    return false;
   }
 }
 
