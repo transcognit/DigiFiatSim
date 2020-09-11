@@ -1,3 +1,5 @@
+package digifiatsim;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,7 +11,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   private JButton jbtn; //creation of button inside the JFrame window private
   private JLabel statusLabel;
   public JLabel MintLabel1, MintLabel2, PSP1Label1, PSP1Label2, PSP2Label1, PSP2Label2;
-  public JLabel UserManagerLabel1, UserManagerLabel2;
+  public JLabel UserManagerLabel1, UserManagerLabel2, UserCountLabel;
   java.util.Timer timer;
 
 
@@ -21,7 +23,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     add(addPSP1Buttons());
     add(addPSP2Buttons());
     add(addUserManagerButtons());
-    setSize(700,350);
+    setSize(700,450);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -87,12 +89,15 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
 
   private JPanel addUserManagerButtons() {
     JPanel panel = new JPanel();
-    GridLayout g = new GridLayout(1,4);
+    GridLayout g = new GridLayout(4,2);
     g.setHgap(5); g.setVgap(5);
     panel.setLayout(g);
     Border eBorder = BorderFactory.createEtchedBorder();
-    panel.setBorder( BorderFactory.createTitledBorder( eBorder, "UserManagers" ) );
-    panel.add(new JLabel("UserManager Transactions"));
+    panel.setBorder( BorderFactory.createTitledBorder( eBorder, "UserManager" ) );
+    panel.add(new JLabel("Users loaded:"));
+    UserCountLabel = new JLabel();
+    panel.add(UserCountLabel);
+    panel.add(new JLabel("Transactions"));
     UserManagerLabel1 = new JLabel();
     panel.add(UserManagerLabel1);
     panel.add(new JLabel("Value"));

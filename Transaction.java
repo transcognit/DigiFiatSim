@@ -1,3 +1,5 @@
+package digifiatsim;
+
 
 public interface Transaction {
   public User getFromEntity();

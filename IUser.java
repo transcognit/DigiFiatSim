@@ -6,6 +6,12 @@ class IUser implements User, Serializable {
   String id, name, publickey;
   Long balance;
 
+  public IUser() {
+    id = "";
+    name = "";
+    publickey = "";
+    balance = 0L;
+  }
   public IUser(String id, String name, Long balance) {
     this.id = id;
     this.name=name;

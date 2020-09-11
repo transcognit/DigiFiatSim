@@ -1,10 +1,12 @@
+package digifiatsim;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.border.*;
 
-class PSP2 extends TimerTask {
+class PSP2 extends TimerTask implements PSP {
   MainWindow m;
 
   public PSP2(MainWindow m1) {
@@ -17,4 +19,6 @@ class PSP2 extends TimerTask {
       //Thread.sleep(500);
     } catch(Exception e) {}
   }
+  public Boolean requestTransaction(AccountTransaction t) { return Boolean.FALSE;}
+  public Boolean submitTransaction(AccountTransaction t) { return Boolean.FALSE;}
 }

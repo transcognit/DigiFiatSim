@@ -39,14 +39,13 @@ public void saveState(String filename) {
     FileOutputStream fos = new FileOutputStream(filename);
     ObjectOutputStream out = new ObjectOutputStream(fos);
     for (int i=0; i < MAXCOUNT; i++) {
-      //System.out.println(""+i);
       out.writeObject(users[i]);
     }
     out.flush();
     fos.close();
   } catch (IOException ex) {
-      System.out.println("Error: "+ex.toString());
-  }
+      System.out.println("Error: " + ex.toString());
+  }  
 
 }
 
