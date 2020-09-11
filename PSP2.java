@@ -19,6 +19,6 @@ class PSP2 extends TimerTask implements PSP {
       //Thread.sleep(500);
     } catch(Exception e) {}
   }
-  public Boolean requestTransaction(AccountTransaction t) { return Boolean.FALSE;}
+  
   public Boolean submitTransaction(AccountTransaction t) { return Boolean.FALSE;}
 }

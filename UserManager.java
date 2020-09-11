@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.border.*;
-
 import org.apache.commons.lang3.*;
 import java.io.*;
 import java.util.Collections;
@@ -19,7 +18,7 @@ class UserManager extends TimerTask {
   public UserManager(MainWindow m1) {
     this.m = m1;
     users = new IUser[MAXCOUNT];
-    loadUsers();
+    createUsers();
   }
   public void run() {
     try {
@@ -50,17 +49,19 @@ class UserManager extends TimerTask {
     return new AccountTransaction(u1, u2, (long)amount);
   }
 
-  public void loadUsers() {
-    try {
-      FileInputStream infile = new FileInputStream("accounts.ser");
-      ObjectInputStream inobj = new ObjectInputStream(infile);
-      for (int i=0; i < MAXCOUNT; i++) {
-        users[i] = (IUser)inobj.readObject();
+  private void createUsers() {
+    Long l;
+    String s;
+    int k;
+    
+    for (int i=0; i<MAXCOUNT; i++) {
+      k = i + 1;
+      s = RandomStringUtils.random(15, Boolean.TRUE, Boolean.FALSE);
+      l = (Math.round(Math.random()*10000+100));
+      users[i] = new IUser(""+(1000*k+k), s, l);
+      if (i%100 == 0) {
+        System.out.println(users[i]);
       }
-    } catch(Exception e) {
-      System.out.println("Error: "+e.getMessage());
-      System.exit(0);
     }
-    m.UserCountLabel.setText(""+MAXCOUNT);
   }
 }

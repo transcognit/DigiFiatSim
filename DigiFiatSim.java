@@ -123,7 +123,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   }
 
   public void startTasks() {
-    //timer = new java.util.Timer("TaskThread");
+    timer = new java.util.Timer("TaskThread");
     TimerMintControl = new ControlTask(this);
     TimerPSP1 = new PSP1(this);
     TimerPSP2 = new PSP2(this);
@@ -146,6 +146,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     // Check if Transaction is valid
     // Update balances
     // Return true;
+    
     return false;
   }
 }
