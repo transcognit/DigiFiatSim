@@ -18,4 +18,10 @@ public class ParBundle {
   public int Mint_SuccessCount;
   public long Mint_TxValue;
   public long Mint_SuccessValue;
+
+  // User stats
+  public int User_TxCount;
+  public int User_SuccessCount;
+  public long User_TxValue;
+  public long User_SuccessValue;
 }

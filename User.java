@@ -14,13 +14,10 @@ abstract class TxUser {
 
 
  interface User {
-  String getID();
-  String getName();
-  String getPublicKey();
-  Boolean increaseBalance(Long l);
-  Boolean decreaseBalance(Long l);
-  //Boolean transferFrom(Long amount);
-  //Boolean transferTo(Long amount);
-  Long getBalance();
-
+  public String getID();
+  public String getName();
+  public String getPublicKey();
+  public Boolean incBalance(Long l);
+  public Boolean decBalance(Long l);
+  public Long getBalance();
 }

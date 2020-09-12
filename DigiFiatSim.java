@@ -13,7 +13,8 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   public JLabel MintLabel1, MintLabel2, PSP1Label1, PSP1Label2, PSP2Label1, PSP2Label2;
   public JLabel UserManagerLabel1, UserManagerLabel2, UserCountLabel;
   java.util.Timer timer;
-  TimerTask TimerMintControl, TimerPSP1, TimerPSP2, TimerUserControl;
+  javax.swing.Timer NewTimerUserControl;
+  TimerTask TimerMintControl, TimerPSP1, TimerPSP2,TimerUserControl;
   Boolean firstRun = Boolean.TRUE;
   ParBundle pars;
   int TxCount, SuccessCount;
@@ -22,17 +23,21 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   MainWindow() {
     setTitle("Main Window");
     setLayout(new GridLayout(5,1));
+
+
     add(addButtons()); // Add panel containing buttons
     add(addMintButtons());
     add(addPSP1Buttons());
     add(addPSP2Buttons());
     add(addUserManagerButtons());
+
+
     setSize(700,450);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pars = new ParBundle();
-
   }
+
   private JPanel addButtons() {
     JPanel panel = new JPanel();
     panel.setLayout(new FlowLayout());
@@ -113,10 +118,18 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
 
   public void actionPerformed(ActionEvent evnt) {
     JButton src = (JButton)evnt.getSource();
+    if (NewTimerUserControl == null) {
+      System.out.println("NewTimerUserControl is null");
+      UserManager2 um2 = new UserManager2(this);
+      NewTimerUserControl = new javax.swing.Timer(1000, um2);
+      System.out.println("NewTimerUserControl is "+ NewTimerUserControl);
+    }
     if (src.getText().equals("Pause...")) {
       stopTasks();
+      NewTimerUserControl.stop();
       src.setText("Start...");
     } else if (src.getText().equals("Start...")) {
+        NewTimerUserControl.start();
         startTasks();
         src.setText("Pause...");
     }
@@ -133,11 +146,13 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     TimerMintControl = new ControlTask(this);
     TimerPSP1 = new PSP1(this);
     TimerPSP2 = new PSP2(this);
-    TimerUserControl = new UserManager(this);
+    //TimerUserControl = new UserManager(this);
     timer.schedule(TimerMintControl,1000,2000);
     timer.schedule(TimerPSP1, 1000, 1000);
     timer.schedule(TimerPSP2, 1000, 500);
-    timer.schedule(TimerUserControl, 1000, 500);
+    //timer.schedule(TimerUserControl, 1000, 500);
+    // Handle special case of UserManager
+        //NewTimerUserControl.start();
     statusLabel.setText("Status: Running");
   }
 
@@ -154,9 +169,9 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     // Return true;
 
     TxCount++;
-    pars.PSP1_TxCount = TxCount;
+    pars.Mint_TxCount = TxCount;
     TxValue += t.getValue();
-    pars.PSP1_TxValue = TxValue;
+    pars.Mint_TxValue = TxValue;
 
     // User who is sending the money
     IUser u1 = (IUser)t.getFromEntity();
@@ -166,9 +181,9 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     // The following operations have to be Atomic
     // Need to lock
     if (u1.getBalance() > v) { // Transaction success
-      if (!u1.decreaseBalance(v))
+      if (!u1.decBalance(v))
         return Boolean.FALSE;
-      u1.increaseBalance(v);
+      u1.incBalance(v);
       return Boolean.TRUE;
     }
     return Boolean.FALSE;

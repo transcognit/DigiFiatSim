@@ -13,11 +13,15 @@ public class AccountManager {
   int k;
   long balance; // The balance in this account
   int MAXCOUNT=1000;
+  static Boolean firstRun = Boolean.TRUE;
 
   public void go() {
     users = new IUser[MAXCOUNT];
     /* Connect to database here, but a file for simulator */
-    createUsers(); /* Create pool of 1000 users */
+    if (firstRun) {
+      createUsers(); /* Create pool of 1000 users */
+      firstRun = Boolean.FALSE;
+    }
   }
 
   private void createUsers() {
@@ -45,7 +49,7 @@ public void saveState(String filename) {
     fos.close();
   } catch (IOException ex) {
       System.out.println("Error: " + ex.toString());
-  }  
+  }
 
 }
 

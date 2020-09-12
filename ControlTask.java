@@ -15,8 +15,8 @@ public class ControlTask extends TimerTask {
   public void run() {
     try {
       //Thread.sleep(1000);
-      m.MintLabel1.setText(""+(int)(Math.random() * 500000 + 1));
-      m.MintLabel2.setText(""+(int)(Math.random() * 500000 + 1));
+      m.MintLabel1.setText("" + m.pars.Mint_TxCount);
+      m.MintLabel2.setText("" + m.pars.Mint_TxCount);
     } catch(Exception e) {}
   }
 }

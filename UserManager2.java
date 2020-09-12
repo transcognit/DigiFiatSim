@@ -10,19 +10,19 @@ import java.io.*;
 import java.util.Collections;
 
 
-class UserManager extends TimerTask {
+class UserManager2 implements ActionListener{
   MainWindow m;
   IUser users[];
   int MAXCOUNT=1000;
   static Boolean firstRun = Boolean.TRUE;
 
-  public UserManager(MainWindow m1) {
+  public UserManager2(MainWindow m1) {
     this.m = m1;
     users = new IUser[MAXCOUNT];
     createUsers();
     m.UserCountLabel.setText(""+MAXCOUNT);
   }
-  public void run() {
+  public void actionPerformed(ActionEvent ev) {
     try {
       // One user transaction per second
       // Pack two random users and a random amount into
@@ -40,7 +40,7 @@ class UserManager extends TimerTask {
 
       // m.UserManagerLabel1.setText(""+(int)(Math.random() * 5000 + 1));
       // m.UserManagerLabel2.setText(""+(int)(Math.random() * 50000 + 1));
-      Thread.sleep(1000);
+
     } catch(Exception e) {
       //System.out.println("Error in UserManager: " + e.printStac());
       e.printStackTrace();
