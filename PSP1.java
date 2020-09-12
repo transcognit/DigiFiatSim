@@ -13,6 +13,8 @@ public class PSP1 extends TimerTask implements PSP {
 
   public PSP1(MainWindow m1) {
     this.m = m1;
+    TxCount = m.pars.PSP1_TxCount;
+    TxValue = m.pars.PSP1_TxValue;
   }
   public void run() {
     try {
@@ -26,14 +28,17 @@ public class PSP1 extends TimerTask implements PSP {
   // Pass on to MintControl and return true if successful
   public Boolean submitTransaction(AccountTransaction t) {
     TxCount++;
+    m.pars.PSP1_TxCount = TxCount;
     TxValue += t.getValue();
+    m.pars.PSP1_TxValue = TxValue;
+
     // User who is sending the money
     IUser u1 = (IUser)t.getFromEntity();
     // Enough balance?
     if (u1.getBalance() > t.getValue()) { // Yes
       return m.submitTransaction(t);
     }
-    
+
     return Boolean.FALSE;
   }
 }

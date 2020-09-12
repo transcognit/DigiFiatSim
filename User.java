@@ -17,8 +17,10 @@ abstract class TxUser {
   String getID();
   String getName();
   String getPublicKey();
-
+  Boolean increaseBalance(Long l);
+  Boolean decreaseBalance(Long l);
   //Boolean transferFrom(Long amount);
   //Boolean transferTo(Long amount);
   Long getBalance();
+
 }

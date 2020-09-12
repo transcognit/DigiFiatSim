@@ -45,4 +45,16 @@ class IUser implements User, Serializable {
   boolean transferTo(Long amount) {
     return Boolean.FALSE;
   } */
+  public Boolean increaseBalance(long b) {
+    balance += b;
+    return Boolean.TRUE;
+  }
+
+  public Boolean decreaseBalance(long b) {
+    if (balance > b) {
+      balance -= b;
+      return Boolean.TRUE;
+    }
+    return Boolean.FALSE;
+  }
 }

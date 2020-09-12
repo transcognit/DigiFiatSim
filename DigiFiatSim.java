@@ -15,6 +15,9 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   java.util.Timer timer;
   TimerTask TimerMintControl, TimerPSP1, TimerPSP2, TimerUserControl;
   Boolean firstRun = Boolean.TRUE;
+  ParBundle pars;
+  int TxCount, SuccessCount;
+  long TxValue, SuccessValue;
 
   MainWindow() {
     setTitle("Main Window");
@@ -27,6 +30,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     setSize(700,450);
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    pars = new ParBundle();
 
   }
   private JPanel addButtons() {
@@ -122,10 +126,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     timer.cancel();
     timer.purge();
     statusLabel.setText("Status: Stopped");
-
   }
-
-
 
   public void startTasks() {
     timer = new java.util.Timer("TaskThread");
@@ -152,7 +153,25 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     // Update balances
     // Return true;
 
-    return false;
+    TxCount++;
+    pars.PSP1_TxCount = TxCount;
+    TxValue += t.getValue();
+    pars.PSP1_TxValue = TxValue;
+
+    // User who is sending the money
+    IUser u1 = (IUser)t.getFromEntity();
+    // Enough balance?
+
+    long v = t.getValue();
+    // The following operations have to be Atomic
+    // Need to lock
+    if (u1.getBalance() > v) { // Transaction success
+      if (!u1.decreaseBalance(v))
+        return Boolean.FALSE;
+      u1.increaseBalance(v);
+      return Boolean.TRUE;
+    }
+    return Boolean.FALSE;
   }
 }
 
