@@ -14,6 +14,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
   public JLabel UserManagerLabel1, UserManagerLabel2, UserCountLabel;
   java.util.Timer timer;
   TimerTask TimerMintControl, TimerPSP1, TimerPSP2, TimerUserControl;
+  Boolean firstRun = Boolean.TRUE;
 
   MainWindow() {
     setTitle("Main Window");
@@ -119,8 +120,12 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
 
   public void stopTasks() {
     timer.cancel();
+    timer.purge();
     statusLabel.setText("Status: Stopped");
+
   }
+
+
 
   public void startTasks() {
     timer = new java.util.Timer("TaskThread");
@@ -146,7 +151,7 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     // Check if Transaction is valid
     // Update balances
     // Return true;
-    
+
     return false;
   }
 }
