@@ -36,6 +36,8 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pars = new ParBundle();
+    UserManager2 um2 = new UserManager2(this);
+    NewTimerUserControl = new javax.swing.Timer(1000, um2);
   }
 
   private JPanel addButtons() {
@@ -118,12 +120,6 @@ class MainWindow extends JFrame implements ActionListener {  //creation of an wi
 
   public void actionPerformed(ActionEvent evnt) {
     JButton src = (JButton)evnt.getSource();
-    if (NewTimerUserControl == null) {
-      System.out.println("NewTimerUserControl is null");
-      UserManager2 um2 = new UserManager2(this);
-      NewTimerUserControl = new javax.swing.Timer(1000, um2);
-      System.out.println("NewTimerUserControl is "+ NewTimerUserControl);
-    }
     if (src.getText().equals("Pause...")) {
       stopTasks();
       NewTimerUserControl.stop();
